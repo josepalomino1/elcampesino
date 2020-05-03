@@ -14,25 +14,27 @@ class pagos_proveedores{
 
     function pagosProveedor($nit){
         $con = conexion("root","1234");
-        $consulta = $con->prepare("SELECT c.nombre as nombre,c.apellido as apellido, pc.pago as pagos, v.id_venta,pc.fecha
-                                from pagos_proveedor as pc
-                                inner join credito_cliente as cc on cc.id_credito = pc.id_credito_cliente
-                                inner join ventas as v on v.id_venta = cc.id_venta
-                                inner join cliente as c on c.id_cliente = v.id_cliente
-                                where c.nit = :nit");
+        $consulta = $con->prepare("SELECT pp.id_pagos, p.nombre, pp.fecha, pp.pago, cp.por_pagar
+                                from pagos_proveedor as pp
+                                inner join credito_proveedor as cp on cp.id_credito = pp.id_credito_proveedor
+                                inner join compras as c on c.id_compra = cp.id_compra
+                                inner join proveedor as p on p.id_proveedor = c.id_proveedores
+                                where p.nit = :nit
+        ");
         $consula->execute(array(
             ':nit' => $nit
         ));
         $resultado = $consulta->fetchAll();
         return $resultado;
     }
-    function pagosClientes(){
+    
+    function pagosProveedores(){
         $con = conexion("root","1234");
-        $consulta = $con->prepare("SELECT c.nombre as nombre,c.apellido as apellido, pc.pago as pagos, v.id_venta,pc.fecha
-                                from pagos_proveedor as pc
-                                inner join credito_cliente as cc on cc.id_credito = pc.id_credito_cliente
-                                inner join ventas as v on v.id_venta = cc.id_venta
-                                inner join cliente as c on c.id_cliente = v.id_cliente
+        $consulta = $con->prepare("SELECT pp.id_pagos, p.nombre, pp.fecha, sum(pp.pago), cp.por_pagar
+                                from pagos_proveedor as pp
+                                inner join credito_proveedor as cp on cp.id_credito = pp.id_credito_proveedor
+                                inner join compras as c on c.id_compra = cp.id_compra
+                                inner join proveedor as p on p.id_proveedor = c.id_proveedores
         ");
         $consula->execute();
         $resultado = $consulta->fetchAll();

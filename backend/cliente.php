@@ -5,7 +5,7 @@ class cliente{
     //esto es el crud:
     //insertar
     function registrar($nombre, $apellido, $numero, $nit, $direccion){
-        //el id_cliente es el nit
+        
         $con = conexion("root", "1234");
         $consulta = $con->prepare("INSERT INTO clientes (id_direccion, nombre, apellido, numero, nit, direccion) VALUES (:id_direccion, :nombre, :apellido, :numero, :nit, :direccion)"); 
         $consulta->execute(array(
@@ -20,9 +20,9 @@ class cliente{
     //leer
     function obtenerCliente($nit){
         $con = conexion("root", "1234");
-        $consulta = $con->prepare("SELECT * FROM cliente WHERE id_cliente=:id_cliente");
+        $consulta = $con->prepare("SELECT * FROM cliente WHERE nit=:nit");
         $consulta->execute(array(
-            ':id_cliente' => $nit
+            ':nit' => $nit
         ));
         $resultado = $consulta->fetchAll();
         return $resultado;

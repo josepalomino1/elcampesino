@@ -9,11 +9,4 @@
 		}
 	}
 
-	function verificar_session(){
-		if(!isset($_SESSION['CodUsua'])){
-			header('location: login.php');
-		}
-	}
-
-
  ?>
