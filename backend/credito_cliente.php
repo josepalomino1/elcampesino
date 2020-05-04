@@ -2,6 +2,7 @@
 require_once 'funciones.php';
 
 class credito_cliente{
+    function __construct() { }
     function registrar($id_venta, $por_cobrar){
         $con = conexion("root","1234");
         $consulta = $con->prepare("INSERT INTO credito_cliente (id_venta, por_cobrar) VALUES (:id_venta,:por_cobrar) ");

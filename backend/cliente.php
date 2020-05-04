@@ -2,12 +2,13 @@
 require_once 'funciones.php';
 
 class cliente{
+    function __construct() { }
     //esto es el crud:
     //insertar
     function registrar($nombre, $apellido, $numero, $nit, $direccion){
         
         $con = conexion("root", "1234");
-        $consulta = $con->prepare("INSERT INTO clientes (id_direccion, nombre, apellido, numero, nit, direccion) VALUES (:id_direccion, :nombre, :apellido, :numero, :nit, :direccion)"); 
+        $consulta = $con->prepare("INSERT INTO cliente ( nombre, apellido, numero, nit, direccion) VALUES ( :nombre, :apellido, :numero, :nit, :direccion)"); 
         $consulta->execute(array(
             ':nombre' => $nombre,
             ':apellido' => $apellido,
@@ -31,7 +32,7 @@ class cliente{
     //leer todos
     function obtenerClientes(){
         $con = conexion("root", "1234");
-        $consulta = $con->prepare("SELECT * FROM obtener_clientes");
+        $consulta = $con->prepare("SELECT * FROM cliente");
         $consulta->execute();
         $resultado = $consulta->fetchAll();
         return $resultado;

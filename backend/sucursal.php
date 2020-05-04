@@ -3,6 +3,7 @@
 require_once 'funciones.php';
 
 class producto{
+    function __construct() { }
     //esta funcion solo la puede hacer el administrador general.
     function registrar($nombre, $direccion){
         $con = conexion("root","1234");

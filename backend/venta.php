@@ -2,6 +2,7 @@
 require_once 'funciones.php';
 
 class compra{
+    function __construct() { }
     //esto es el crud:
     //insertar
     function registrar($id_empleado, $id_cliente, $id_tipo_compra_venta, $fecha){

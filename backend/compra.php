@@ -2,12 +2,12 @@
 require_once 'funciones.php';
 
 class compra{
-    //esto es el crud:
-    //insertar
+
+    function __construct() { }
+    
     function registrar($id_sucursal, $id_proveedores, $id_tipo_compra_venta, $fecha){
-        //el id_cliente es el nit
         $con = conexion("root", "1234");
-        $consulta = $con->prepare("INSERT INTO compras (id_sucursal, id_proveedores, id_tipo_compra_venta, fecha) VALUES (:id_sucursal, :id_proveedores, :id_tipo_compra_venta, :fecha)"); 
+        $consulta = $con->prepare("INSERT INTO compras ( id_sucursal, id_proveedores, id_tipo_compra_venta, fecha ) VALUES (:id_sucursal, :id_proveedores, :id_tipo_compra_venta, :fecha)"); 
         $consulta->execute(array(
             ':id_sucursal' => $id_sucursal,
             ':id_proveedores' => $id_proveedores,
@@ -43,7 +43,13 @@ class compra{
     //obtiene todas las compras se se han hecho a un proveedor
     function obtenerComprasProveedor($id_proveedores){
         $con = conexion("root", "1234");
-        $consulta = $con->prepare("SELECT * FROM view_compra WHERE id_proveedores=:id_proveedores");
+        $consulta = $con->prepare("SELECT c.id_compra, sum(d.cantidad*p.precio_compra) as total , c.fecha,  pv.nombre, pv.direccion
+                                    from compras as c 
+                                    inner join compra_detalle as d on d.id_compra=c.id_compra
+                                    inner join productos as p on p.id_producto=d.id_producto
+                                    inner join proveedor as pv on pv.id_proveedor = c.id_proveedores
+                                    where c.id_proveedores = :id_proveedores
+                                    group by c.id_compra");
         $consulta->execute(array(
             ':id_proveedores' => $id_proveedores
         ));
@@ -76,8 +82,8 @@ class compra{
 
     function ultimaCompra(){
         $con = conexion("root","1234");
-        $consulta = $con->prepare("SELECT max(id_compra) from compras");
-        $consula->execute();
+        $consulta = $con->prepare("SELECT max(id_compra) as comp from compras");
+        $consulta->execute();
         $resultado = $consulta->fetchAll();
         return $resultado;
     }

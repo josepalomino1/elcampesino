@@ -1,7 +1,7 @@
 <?php 
 require_once 'funciones.php';
 class pagos_proveedores{
-    
+    function __construct() { }
     function registrar($id_credito_proveedor, $pago, $fecha){
         $con = conexion("root","1234");
         $consulta = $con->prepare("INSERT INTO pagos_proveedor (id_credito_proveedor, fecha, pago) VALUES (:id_credito_proveedor,:fecha,:pago) ");

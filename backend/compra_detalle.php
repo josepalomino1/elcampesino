@@ -3,10 +3,11 @@
 require_once 'funciones.php';
 
 class compra_detalle{
+    function __construct() { }
     //para crear una compra_detalle
     function registrar($id_compra, $id_producto, $cantidad){
         $con = conexion("root","1234");
-        $consula = $con->prepare("INSERT INTO compra_detalle (id_compra, id_producto, cantidad) VALUES (:id_compra, :id_producto,:cantidad)");
+        $consulta = $con->prepare("INSERT INTO compra_detalle (id_compra, id_producto, cantidad) VALUES (:id_compra, :id_producto,:cantidad)");
         $consulta->execute(array(
             'id_compra' => $id_compra,
             'id_producto' => $id_producto,
@@ -17,8 +18,8 @@ class compra_detalle{
 
     function editar($id_compra, $id_producto, $cantidad, $id_compra_producto){
         $con = conexion("root","1234");
-        $consulta = $con->prepare("UPDATE compras SET id_compra=:id_compra, id_producto=:id_producto, cantidad=:cantidad where id_compra_producto=:id_compra_producto");
-        $consula->execute(array(
+        $consulta = $con->prepare("UPDATE compra_detalle SET id_compra=:id_compra, id_producto=:id_producto, cantidad=:cantidad where id_compra_producto=:id_compra_producto");
+        $consulta->execute(array(
             'id_compra' => $id_compra,
             'id_producto' => $id_producto,
             'cantidad' => $cantidad,
@@ -35,15 +36,15 @@ class compra_detalle{
         ));
     }
 
-    function existencias($id_sucursal){
+    function ObtenerCompraDetalle($id_compra_producto){
         $con = conexion("root","1234");
-        $consula = $con->prepare("SELECT p.nombre, cd.cantidad ,c.id_sucursal 
+        $consulta = $con->prepare("SELECT p.nombre, cd.cantidad
                                 from compra_detalle as cd
                                 inner join compras as c on c.id_compra = cd.id_compra
                                 inner join productos as p on p.id_producto = cd.id_producto
-                                where c.id_sucursal = :id_sucursal");
+                                where cd.id_compra_producto = :id_compra_producto");
         $consulta->execute(array(
-            'id_sucursal' => $id_sucursal
+            'id_compra_producto' => $id_compra_producto
         ));
         $resultado = $consulta->fetchAll();
         return $resultado;
