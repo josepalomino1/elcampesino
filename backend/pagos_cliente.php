@@ -1,13 +1,15 @@
 <?php 
 require_once 'funciones.php';
 class pagos_cliente{
+    
     function __construct() { }
-    function registrar($id_credito_cliente, $pago, $fecha){
+    
+    function registrar($id_credito_cliente, $fecha, $pago){
         $con = conexion("root","1234");
-        $consulta = $con->prepare("INSERT INTO pagos_cliente (id_credito_cliente, fecha, pago) VALUES (:id_credito_cliente,:fecha,:pago) ");
-        $consula->execute(array(
-            ':id_credito_cliente' => $id_credito_cliente,
-            ':fecha' => $fecha,
+        $consulta = $con->prepare("INSERT INTO pagos_cliente (id_credito_cliente, fecha, pago) VALUES (:id_credito_cliente, :fecha, :pago)");
+        $consulta->execute(array(
+            ':id_credito_cliente' => $id_credito_cliente, 
+            ':fecha' => $fecha, 
             ':pago' => $pago
         ));
     }
@@ -20,12 +22,13 @@ class pagos_cliente{
                                 inner join ventas as v on v.id_venta = cc.id_venta
                                 inner join cliente as c on c.id_cliente = v.id_cliente
                                 where c.nit = :nit");
-        $consula->execute(array(
+        $consulta->execute(array(
             ':nit' => $nit
         ));
         $resultado = $consulta->fetchAll();
         return $resultado;
     }
+
     function pagosClientes(){
         $con = conexion("root","1234");
         $consulta = $con->prepare("SELECT c.nombre as nombre,c.apellido as apellido, pc.pago as pagos, v.id_venta,pc.fecha
@@ -34,7 +37,7 @@ class pagos_cliente{
                                 inner join ventas as v on v.id_venta = cc.id_venta
                                 inner join cliente as c on c.id_cliente = v.id_cliente
         ");
-        $consula->execute();
+        $consulta->execute();
         $resultado = $consulta->fetchAll();
         return $resultado;
     }

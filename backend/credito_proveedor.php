@@ -1,18 +1,18 @@
 <?php 
 require_once 'funciones.php';
-class credito_proveedores{
+class credito_proveedor{
     function __construct() { }
     function registrar($id_compra, $por_pagar){
         $con = conexion("root","1234");
         $consulta = $con->prepare("INSERT INTO credito_proveedor (id_compra, por_pagar) VALUES (:id_compra,:por_pagar) ");
-        $consula->execute(array(
+        $consulta->execute(array(
             'id_compra' => $id_compra,
             'por_pagar' => $por_pagar
         ));
     }
     function obtenerCreditos(){
         $con = conexion("root","1234");
-        $consula = $con->prepare("SELECT cp.id_credito,p.nombre, c.fecha, cp.por_pagar, p.id_proveedor
+        $consulta = $con->prepare("SELECT cp.id_credito,p.nombre, c.fecha, cp.por_pagar, p.id_proveedor
                                 from credito_proveedor as cp
                                 inner join compras as c on c.id_compra = cp.id_compra
                                 inner join proveedor as p on p.id_proveedor = c.id_proveedores
@@ -24,7 +24,7 @@ class credito_proveedores{
 
     function obtenerCreditosProveedor($nit){
         $con = conexion("root","1234");
-        $consula = $con->prepare("SELECT cp.id_credito, p.nombre, c.fecha, cp.por_pagar
+        $consulta = $con->prepare("SELECT cp.id_credito, p.nombre, c.fecha, cp.por_pagar
                                 from credito_proveedor as cp
                                 inner join compras as c on c.id_compra = cp.id_compra
                                 inner join proveedor as p on p.id_proveedor = c.id_proveedores
@@ -37,10 +37,10 @@ class credito_proveedores{
         return $resultado;
     }
 
-    function editar($id_credito, $por_pagar){
+    function editarPago($id_credito, $por_pagar){
         $con = conexion("root","1234");
         $consulta = $con->prepare("UPDATE credito_proveedor SET por_pagar=:por_pagar where id_credito=:id_credito");
-        $consula->execute(array(
+        $consulta->execute(array(
             'id_credito' => $id_credito,
             'por_pagar' => $por_pagar
         ));

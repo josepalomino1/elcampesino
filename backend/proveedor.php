@@ -6,9 +6,8 @@ class Proveedor{
     //esto es el crud:
     //insertar
     function registrar($nombre, $numero, $nit, $numero2, $direccion){
-        
         $con = conexion("root", "1234");
-        $consulta = $con->prepare("INSERT INTO proveedor (nombre, numero, nit, numero2, direccion) VALUES (':nombre', ':numero', ':nit', ':numero2', ':direccion')"); 
+        $consulta = $con->prepare("INSERT INTO proveedor (nombre, numero, nit, numero2, direccion) VALUES (:nombre, :numero, :nit, :numero2, :direccion)"); 
         $consulta->execute(array(
             ':nombre' => $nombre,
             ':numero' => $numero,

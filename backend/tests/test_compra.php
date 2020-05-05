@@ -6,7 +6,7 @@ $com = new compra();
 // $id_sucursal="3"; 
 // $id_proveedores="3"; 
 // $id_tipo_compra_venta="1"; 
-// $fecha = "2020-05-04"; //debes de meterlo con ese formato, si no te va a dar error
+// $fecha = "2020-05-04"; //YY-MM-DDdebes de meterlo con ese formato, si no te va a dar error
 // $com::registrar($id_sucursal, $id_proveedores, $id_tipo_compra_venta, $fecha);
 // $var = $com::obtenerCompras();
 // foreach ($var as $key) {
