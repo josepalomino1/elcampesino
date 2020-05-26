@@ -33,7 +33,42 @@ class venta_detalle{
         ));
     }
 
-    
+    function carrito($id_empleado, $id_producto, $nombre_producto, $precio, $marca, $descripcion, $cantidad){
+        $con = conexion("root", "1234");
+        $consulta = $con->prepare("INSERT INTO carrito (id_empleado, id_producto, nombre_producto, precio, marca, descripcion, cantidad) VALUES (:id_empleado, :id_producto, :nombre_producto, :precio, :marca, :descripcion, :cantidad)"); 
+        $consulta->execute(array(
+            ':id_empleado' => $id_empleado,
+            ':id_producto' => $id_producto,
+            ':nombre_producto' => $nombre_producto,
+            ':precio' => $precio,
+            ':marca' => $marca,
+            ':descripcion' => $descripcion,
+            ':cantidad' => $cantidad
+        ));
+    }
+
+    function ver_carrito($id_empleado){
+        $con = conexion("root", "1234");
+        $consulta = $con->prepare("SELECT id_empleado, id_producto, nombre_producto, precio, marca, descripcion, SUM(cantidad) FROM carrito WHERE id_empleado=$id_empleado group by id_producto");
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        return $resultado;
+    }
+    function vercarrito($id_empleado, $id_producto, $nombre_producto, $precio, $marca, $descripcion, $cantidad){
+        $con = conexion("root", "1234");
+        $consulta = $con->prepare("SELECT * FROM carrito WHERE id_empleado=:id_empleado");
+        $consulta->execute(array(
+            'id_empleado' => $id_empleado,
+            'id_producto' => $id_producto,
+            'nombre_producto' => $nombre_producto,
+            'precio' => $precio,
+            'marca' => $marca,
+            'descripción' => $descripcion,
+            'cantidad' => $cantidad
+        ));
+        $resultado = $consulta->fetchAll();
+        return $resultado;
+    }
 
 }
 

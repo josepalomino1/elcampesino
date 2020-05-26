@@ -5,6 +5,7 @@
     verificar_session();
     if(isset($_GET['id'])){
         $var = $c_cliente::obtenerCreditosCliente($_GET['id']);
+        $nit = $_GET['id'];
     }else{
         header('location: index.php');
     }
@@ -30,6 +31,7 @@
                     <th>#</th>
                     <th>Nombre</th>
                     <th>Por Cobrar</th>
+                    <th>---</th>
                 </tr>
             </thead>
 
@@ -43,13 +45,10 @@
                     <td><?php echo $key[0]; ?></td>
                     <td><?php echo $key[1]; ?></td>
                     <td>
-                        <!--<a href="credito_cliente.php?id=<?php echo $key[4];?>" class="btn waves-effect waves-light"
-                            name="action">Ver Credito
+                        <a href="ingresar_pago.php?id=<?php echo $key[2];?>" class="btn waves-effect waves-light"
+                            name="action">Ingresar pago
                             <i class="material-icons right">monetization_on</i></a>
-                        <a href="pagos_cliente.php?id=<?php echo $key[4]; ?>" class="btn waves-effect green"
-                            name="action">Ver pagos
-                            <i class="material-icons right">monetization_on</i></a>
-                        -->
+                           
                     </td>
 
                 </tr>

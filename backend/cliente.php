@@ -8,7 +8,7 @@ class cliente{
     function registrar($nombre, $apellido, $numero, $nit, $direccion){
         
         $con = conexion("root", "1234");
-        $consulta = $con->prepare("INSERT INTO cliente ( nombre, apellido, numero, nit, direccion) VALUES ( :nombre, :apellido, :numero, :nit, :direccion)"); 
+        $consulta = $con->prepare("INSERT INTO cliente ( nombre, apellido, numero, nit, direccion,) VALUES ( :nombre, :apellido, :numero, :nit, :direccion)"); 
         $consulta->execute(array(
             ':nombre' => $nombre,
             ':apellido' => $apellido,
@@ -17,7 +17,7 @@ class cliente{
             ':direccion' => $direccion
         ));
     }
-
+ 
     //leer
     function obtenerCliente($nit){
         $con = conexion("root", "1234");

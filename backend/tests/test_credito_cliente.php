@@ -6,7 +6,7 @@ $cc = new credito_cliente();
 // $por_cobrar = 500;
 // $cc::registrar($id_venta, $por_cobrar);
 //-----------------------------------------------------
-
+ 
 //-----------------------------------------------------
 // $var = $cc::obtenerCreditos();
 // foreach ($var as $key) {

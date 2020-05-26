@@ -42,6 +42,13 @@ class productos{
         return $resultado;
     }
 
+    function carrito($id_producto, $nombre, $precio, $descripcion, $marca, $cantidad){
+        $con = conexion("root", "1234");
+        $consulta = $con->prepare("INSERT INTO carrito (id_producto, nombre, precio, descripcion, marca, cantidad) 
+        VALUES ('$id_producto', '$nombre', '$precio, '$descripcion', '$marca', '$cantidad');"); 
+        $consulta->execute();
+    }
+
 
 }
 
