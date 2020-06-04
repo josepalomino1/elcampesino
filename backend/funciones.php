@@ -2,7 +2,7 @@
 
 	function conexion($usuario, $contra){
 		try {
-			$con = new PDO('mysql:host=localhost;dbname=pos', $usuario, "");
+			$con = new PDO('mysql:host=localhost;dbname=pos', 'root', '');
 			return $con;
 		} catch (PDOException $e) {
 			return $e->getMessage();

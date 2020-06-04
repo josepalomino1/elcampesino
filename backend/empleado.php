@@ -30,7 +30,7 @@ class empleado {
         $resultado = $consulta->fetchAll();
         return $resultado;
     }
-
+ 
     function obtenerEmpleado(){
         $con = conexion("root", "1234");
         $consulta = $con->prepare("SELECT * FROM lista_empleado");
@@ -70,6 +70,13 @@ class empleado {
             ':pass' => $hashed
             
         ));
+    }
+    function obtenerTipoEmpleado(){
+        $con = conexion("root", "1234");
+        $consulta = $con->prepare("SELECT * FROM tipo_empleado");
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        return $resultado;
     }
 }
 

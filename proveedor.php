@@ -1,17 +1,17 @@
 <?php
     session_start();
-    require_once("backend/cliente.php");
-    $cliente = new cliente();
+    require_once("backend/proveedor.php");
+    $proveedor = new proveedor();
     verificar_session();
     $bandera = false;
     if(isset($_GET['nit'])){
-        $var = $cliente::obtenerCliente($_GET['nit']);
+        $var = $proveedor::obtenerProveedor($_GET['nit']);
         if(isset($var[0])){
             $bandera = true;
         }
     }
     if(isset($_POST['buscar'])){
-        $var = $cliente::obtenerCliente($_POST['nit']);
+        $var = $proveedor::obtenerProveedor($_POST['nit']);
         if(isset($var[0])){
             $bandera = true;
         }
@@ -42,15 +42,11 @@
                     <button class="waves-effect waves-teal btn-flat prefix" name="buscar"><i
                             class="material-icons">search</i></button>
                     <input type="text" id="autocomplete-input" class="autocomplete" name="nit">
-                    <label for="autocomplete-input">Escriba el nit de un cliente</label>
-
+                    <label for="autocomplete-input">Escriba el nit de un proveedor</label>
                 </div>
-
             </div>
         </form>
     </div>
-
-
 
     <?php if($bandera){ ?>
     <div class="container">
@@ -59,13 +55,11 @@
                 <tr>
                     <th>#</th>
                     <th>Nombre</th>
-                    <th>Apellido</th>
                     <th>Telefono</th>
+                    <th>Telefono 2</th>
                     <th>Nit</th>
                     <th>Direccion</th>
-                    <th>Editar</th>
-                    <th>Ver Créditos</th>
-                    <th>Ver Pagos</th>
+                    <th>---</th>
                     <th></th>
 
                 </tr>
@@ -85,18 +79,9 @@
                     <td><?php  echo $key[4]?></td>
                     <td><?php  echo $key[5]?></td>
                     <td>
-                        <a href="editar_cliente.php?id=<?php echo $key[4]; ?>"
+                        <a href="editar_proveedor.php?id=<?php echo $key[3]; ?>"
                             class="btn-floating waves-effect light-blue darken-3" name="action"><i
                                 class="material-icons">edit</i></a>
-                    </td>
-                    <td>
-                        <a href="credito_cliente.php?id=<?php echo $key[4];?>"
-                            class="btn-floating waves-effect waves-light" name="action"><i
-                                class="material-icons">monetization_on</i></a>
-                    </td>
-                    <td>
-                        <a href="pagos_cliente.php?id=<?php echo $key[4];?>" class="btn-floating waves-effect green"
-                            name="action"><i class="material-icons">account_balance</i></a>
                     </td>
                 </tr>
 
@@ -122,5 +107,5 @@
         <?php  } ?>
     </div>
 </body>
-<?php require_once("footer.php"); ?>
+
 </html>

@@ -61,7 +61,16 @@ class cliente{
             ':id_cliente' => $id_cliente
         ));
     }
-
+    //clientes segun nit
+    function NitClientes($nit){
+        $con = conexion("root", "1234");
+        $consulta = $con->prepare("SELECT * FROM cliente where nit=:nit");
+        $consulta->execute(array(
+            ':nit' => $nit
+        ));
+        $resultado = $consulta->fetchAll();
+        return $resultado;
+    }
 
 }
 

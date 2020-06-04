@@ -20,7 +20,7 @@ class pagos_cliente{
                                 from pagos_cliente as pc
                                 inner join credito_cliente as cc on cc.id_credito = pc.id_credito_cliente
                                 inner join ventas as v on v.id_venta = cc.id_venta
-                                inner join cliente as c on c.id_cliente = v.id_cliente
+                                inner join cliente as c on c.nit = v.id_cliente
                                 
                                 where c.nit = :nit
                                 ORDER BY iv desc 
@@ -38,7 +38,7 @@ class pagos_cliente{
                                 from pagos_cliente as pc
                                 inner join credito_cliente as cc on cc.id_credito = pc.id_credito_cliente
                                 inner join ventas as v on v.id_venta = cc.id_venta
-                                inner join cliente as c on c.id_cliente = v.id_cliente
+                                inner join cliente as c on c.nit = v.id_cliente
         ");
         $consulta->execute();
         $resultado = $consulta->fetchAll();

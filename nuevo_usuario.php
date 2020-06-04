@@ -2,6 +2,9 @@
     session_start();
     require_once("backend/empleado.php");
     $empleado = new empleado();
+    require_once("backend/sucursal.php");
+    $sucursal = new sucursal();
+    $sucursales = $sucursal::ObtenerSucursales();
     
     $carpetaDestino="img/";
     if(isset($_POST['registrar'])){
@@ -75,9 +78,9 @@
                 <div class="input-field col s6">
                     <select name="id_sucursal">
                         <option value="" disabled selected>Seleccione sucursal</option>
-                        <option value="1">Retalhuleu</option>
-                        <option value="2">Mazatenango</option>
-                        <option value="3">Coatepeque</option>
+                    <?php foreach ($sucursales as $key ):?>
+                        <option value="<?php echo $key[0]; ?>"><?php echo $key[1]; ?></option>
+                    <?php endforeach; ?>
                     </select>
                     <label>Sucursal</label>
                 </div>

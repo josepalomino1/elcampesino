@@ -15,7 +15,7 @@ class credito_proveedor{
         $consulta = $con->prepare("SELECT cp.id_credito,p.nombre, c.fecha, cp.por_pagar, p.id_proveedor
                                 from credito_proveedor as cp
                                 inner join compras as c on c.id_compra = cp.id_compra
-                                inner join proveedor as p on p.id_proveedor = c.id_proveedores
+                                inner join proveedor as p on p.nit = c.id_proveedores
                                 where por_pagar > 0");
         $consulta->execute();
         $resultado = $consulta->fetchAll();
@@ -25,11 +25,11 @@ class credito_proveedor{
     function obtenerCreditosProveedor($nit){
         $con = conexion("root","1234");
         $consulta = $con->prepare("SELECT cp.id_credito, p.nombre, c.fecha, cp.por_pagar
-                                from credito_proveedor as cp
-                                inner join compras as c on c.id_compra = cp.id_compra
-                                inner join proveedor as p on p.id_proveedor = c.id_proveedores
-                                where p.nit = 2
-                                and cp.por_pagar > 0");
+                                    from credito_proveedor as cp
+                                        inner join compras as c on c.id_compra = cp.id_compra
+                                        inner join proveedor as p on p.nit = c.id_proveedores
+                                        where p.nit = :nit
+                                        and cp.por_pagar > 0");
         $consulta->execute(array(
             'nit' => $nit
         ));

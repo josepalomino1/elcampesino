@@ -26,7 +26,7 @@ $productos = $_POST["productos"];
 $precio_unidad = $_POST["precio_unidad"];
 
 //variable que guarda el nombre del archivo PDF
-$archivo="factura-$id_factura.pdf";
+$archivo="cotizacion.pdf";
 
 //Llamada al script fpdf
 require('fpdf.php');
@@ -45,7 +45,7 @@ $pdf->AddPage();  //a�adimos una p�gina. Origen coordenadas, esquina superio
 $pdf->SetFont('Arial','B',14);
 $pdf->Cell(190, 10, utf8_decode("FERRETERÍA EL CAMPESINO"), 0, 2, "C");
 $pdf->SetFont('Arial','B',10);
-$pdf->MultiCell(190,5, utf8_decode("FACTURA No.: $id_factura"."\n"."Fecha: $fecha_factura"), 0, "C", false);
+$pdf->MultiCell(190,5, utf8_decode("COTIZACIÓN"."\n"."Fecha: $fecha_factura"), 0, "C", false);
 $pdf->Ln(2);
 
 // Datos de la tienda
@@ -143,6 +143,4 @@ fclose($fp);
 
 //Eliminaci�n del archivo en el servidor
 unlink($archivo);
-
-
 }

@@ -1,11 +1,9 @@
 <?php
     session_start();
     $id_empleado = $_SESSION['id_empleado'];
-    require_once("backend/venta.php");
     require_once("backend/productos.php");
-    require_once('backend/venta_detalle.php');
-    $vd = new venta_detalle();
-    $venta = new venta();
+    require_once('backend/carrito_compra.php');
+    $vd = new carrito_compra();
     $producto = new productos();
     verificar_session();
     $bandera = false;
@@ -37,6 +35,7 @@
         $nombre_producto=$_POST['nombre'];   
         $_SESSION['nombre_producto']=$nombre_producto;
     }
+
     
     
      $var = $producto::productoNombre($_SESSION['id_sucursal'],$nombre_producto);
@@ -53,14 +52,16 @@
         $id_producto." ".$nombre." ".$marca." \n";
         $cantidad;
         
-        $vd::carrito($id_empleado, $id_producto, $nombre, $precio, $marca, $descripcion, $cantidad);
+
+        $vd::agregar($id_empleado, $id_producto, $nombre, $precio, $marca, $descripcion, $cantidad);
+       
+        
     }
 
     if(isset($_POST['add_factura'])){
         echo "hola";
     }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,7 +69,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Ventas</title>
+    <title>Compras</title>
     <?php require_once("materialize/materialize.html"); 
     require_once('header.php');?>
     <script src="https://code.jquery.com/jquery-3.4.1.js"
@@ -78,8 +79,10 @@
 <body>
     <?php require_once("navbar.php"); ?>
 
+   
+
     <div class="row container ">
-        <form class="col s12" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+    <form class="col s12" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <div class="row">
                 <div class="input-field col s10">
                     <button class="waves-effect waves-teal btn-flat prefix" name="buscar"><i
@@ -99,7 +102,6 @@
                     <th>#</th>
                     <th>Nombre</th>
                     <th>Precio</th>
-                    <th>Existencias</th>
                     <th>Marca</th>
                     <th>Descripcion</th>
                     <th>Cantidad</th>
@@ -113,7 +115,7 @@
             
             $i = 0;
             foreach ($var as $key) {?>
-                <form class="col s12" action="guardar_venta.php" method="POST">
+                <form class="col s12" action="compras.php" method="POST">
                     <tr>
                         <td><input type="hidden" value="<?php echo $key[0]; ?>" class="validate"
                                 name="id_producto"><?php echo $i; ?></td>
@@ -122,15 +124,15 @@
                                 name="nombre_p"><?php echo $key[1]; ?></td>
                         <td><input type="hidden" value="<?php echo $key[2]; ?>" class="validate"
                                 name="precio"><?php echo "Q. ".$key[2]; ?></td>
-                        <td><?php echo $key[3]; ?></td>
+                        
                         <td><input type="hidden" value="<?php echo $key[4]; ?>" class="validate"
                                 name="marca"><?php echo $key[4]; ?></td>
                         <td><input type="hidden" value="<?php echo $key[5]; ?>" class="validate"
                                 name="descripcion"><?php echo $key[5]; ?></td>
                         <td>
-                            <input type="number" min="1" max="<?php echo $key[3]; ?>" style="width : 50px;" class="validate" name="cantidad" value="1">
+                            <input type="number" min="1"  style="width : 50px;" class="validate" name="cantidad" value="1">
                         </td>
-                        <td><button name="add_carrito" type="submit"
+                        <td><button name="add_carrito" type="submit" onclick="M.toast({html: 'Agregado!', classes: 'rounded'})"
                                 class="btn-floating waves-effect waves-light green"><i
                                     class="material-icons">add</i></button></td>
                     </tr>
@@ -147,7 +149,7 @@
         </table>
         <?php  } ?>
         <div class="fixed-action-btn">
-        <a href="preventa.php" class="btn-floating btn-large blue"><i class="material-icons">shopping_cart</i></a>
+        <a href="precompras.php" class="btn-floating btn-large blue"><i class="material-icons">shopping_cart</i></a>
         </div>
 </body>
 <?php

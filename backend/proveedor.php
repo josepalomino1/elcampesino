@@ -2,7 +2,7 @@
 require_once 'funciones.php';
 
 class Proveedor{
-    function __construct() { }
+    function __construct() { } 
     //esto es el crud:
     //insertar
     function registrar($nombre, $numero, $nit, $numero2, $direccion){

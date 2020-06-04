@@ -14,11 +14,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var elems = document.querySelectorAll('.autocomplete');
     var instances = M.Autocomplete.init(elems);
 
-    var elems = document.querySelectorAll('.carousel');
-    var instances = M.Carousel.init(elems);
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
+
+    var toastElement = document.querySelector('.toast');
+    var toastInstance = M.Toast.getInstance(toastElement);
+    toastInstance.dismiss();
 
     var elems = document.querySelectorAll('.fixed-action-btn');
-    var instances = M.FloatingActionButton.init(elems);
-
+    var instances = M.FloatingActionButton.init(elems, {
+        direction: 'top'
+    });
 });
 </script>
