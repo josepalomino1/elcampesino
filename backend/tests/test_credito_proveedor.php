@@ -1,6 +1,6 @@
 <?php 
 require('../credito_proveedor.php');
-$cp = new credito_proveedor();
+$cp = new credito_proveedor(); 
 //-----------------------------------------------------
 // $id_compra = "2";
 // $por_pagar = 2000;

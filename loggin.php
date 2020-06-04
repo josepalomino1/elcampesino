@@ -41,7 +41,7 @@ if(isset($_POST['ingresar'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>loggin</title>
+    <title>login</title>
     <?php 
         require_once("materialize/materialize.html");
     ?>
@@ -55,13 +55,12 @@ if(isset($_POST['ingresar'])){
                 <div class="input-field col s6">
                     <i class="material-icons prefix">account_circle</i>
                     <input id="icon_prefix" type="email" name="correo" class="validate">
-                    <label for="icon_prefix">Correo</label>
 
                 </div>
                 <div class="input-field col s6">
                     <i class="material-icons prefix">lock</i>
                     <input id="icon_lock" type="password" name="pass" class="validate">
-                    <label for="icon_lock">Contraseña</label>
+
                 </div>
             </div>
                 <button class="btn waves-effect waves-light" type="submit" value="ingresar"

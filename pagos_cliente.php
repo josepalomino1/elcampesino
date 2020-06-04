@@ -26,7 +26,7 @@
 <body>
     <?php require_once("navbar.php"); ?>
     <div class="container">
-    <table>
+    <table class="centered highlight">
         <thead>
             <tr>
                 <th>#</th>
@@ -66,10 +66,10 @@
                 }
            
             ?>
-
-
         </tbody>
     </table>
+    </br>
+    <a href="cliente.php" class="btn waves-effect right"type="submit" name="aceptar">Aceptar</a>
     </div>
 </body>
 

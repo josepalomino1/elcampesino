@@ -18,7 +18,7 @@ class pagos_proveedor{
                                 from pagos_proveedor as pp
                                 inner join credito_proveedor as cp on cp.id_credito = pp.id_credito_proveedor
                                 inner join compras as c on c.id_compra = cp.id_compra
-                                inner join proveedor as p on p.id_proveedor = c.id_proveedores
+                                inner join proveedor as p on p.nit = c.id_proveedores
                                 where p.nit = :nit
         ");
         $consulta->execute(array(

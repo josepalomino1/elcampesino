@@ -4,7 +4,7 @@ session_start();
 if(isset($_SESSION['id_empleado']))
 {
 	session_destroy();
-	header('location: loggin.php');
+	header('location: login.php');
 }
 
 

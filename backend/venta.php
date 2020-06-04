@@ -1,6 +1,6 @@
 <?php 
 require_once 'funciones.php';
-
+ 
 class venta{
     function __construct() { }
     //esto es el crud:
@@ -65,7 +65,7 @@ class venta{
         ));
     }
 
-    function ultimaCompra(){
+    function ultimaVenta(){
         $con = conexion("root","1234");
         $consulta = $con->prepare("SELECT max(id_venta) from ventas");
         $consulta->execute();

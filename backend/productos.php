@@ -18,15 +18,35 @@ class productos{
                                 descripcion='$descripcion', marca='$marca' WHERE  id_producto=$id_producto");
         $consulta->execute();
     }
+    //existencia_Real - $venta = nueva_existencia
+    function editarExistencias($id_producto, $existencia){
+        $con = conexion("root","1234");
+        $consulta = $con->prepare("UPDATE productos SET existencia='$existencia' WHERE  id_producto=$id_producto");
+        $consulta->execute();
+    }
     
     //busca producto por nombre
     function productoNombre($id_sucursal, $nombre){
         $con = conexion("root","1234");
-        $consulta = $con->prepare("SELECT p.id_producto, p.nombre, p.precio_venta as precio, p.existencia, p.marca, p.descripcion from productos as p
+        if($nombre==""){
+            $consulta = $con->prepare("SELECT p.id_producto, p.nombre, p.precio_venta as precio, p.existencia, p.marca, p.descripcion from productos as p
+        where p.id_sucursal = :id_sucursal");
+        }else{
+            $consulta = $con->prepare("SELECT p.id_producto, p.nombre, p.precio_venta as precio, p.existencia, p.marca, p.descripcion from productos as p
         where p.id_sucursal = :id_sucursal and nombre like '%$nombre%' ");
+        }
+        
         $consulta->execute(array(
             ':id_sucursal' => $id_sucursal
         ));
+        $resultado = $consulta->fetchAll();
+        return $resultado;
+    } 
+
+    function productoId($id){
+        $con = conexion("root","1234");
+        $consulta = $con->prepare("SELECT existencia FROM productos WHERE id_producto = $id ");
+        $consulta->execute();
         $resultado = $consulta->fetchAll();
         return $resultado;
     }
@@ -40,6 +60,13 @@ class productos{
         ));
         $resultado = $consulta->fetchAll();
         return $resultado;
+    } 
+
+    function carrito($id_producto, $nombre, $precio, $descripcion, $marca, $cantidad){
+        $con = conexion("root", "1234");
+        $consulta = $con->prepare("INSERT INTO carrito (id_producto, nombre, precio, descripcion, marca, cantidad) 
+        VALUES ('$id_producto', '$nombre', '$precio, '$descripcion', '$marca', '$cantidad');"); 
+        $consulta->execute();
     }
 
 

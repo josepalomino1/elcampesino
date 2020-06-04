@@ -4,17 +4,18 @@ require_once 'funciones.php';
 class empleado {
     function __construct() { }
     
-    function registrar($id_tipo_empleado, $id_sucursal, $nombre, $apellido, $correo, $pass){
+    function registrar($id_tipo_empleado, $id_sucursal, $nombre, $apellido, $correo, $pass, $imagen){
         $hashed = hash('sha512', $pass);
         $con = conexion("root", "1234");
-        $consulta = $con->prepare("INSERT INTO empleado (id_tipo_empleado, id_sucursal, nombre, apellido, correo, pass) VALUES (:id_tipo_empleado, :id_sucursal, :nombre, :apellido, :correo, :pass)");
+        $consulta = $con->prepare("INSERT INTO empleado (id_tipo_empleado, id_sucursal, nombre, apellido, correo, pass, imagen) VALUES (:id_tipo_empleado, :id_sucursal, :nombre, :apellido, :correo, :pass, :imagen)");
         $consulta->execute(array(
             ':id_tipo_empleado'=>$id_tipo_empleado,
             ':id_sucursal'=>$id_sucursal,
             ':nombre' => $nombre,
             ':apellido' => $apellido,
             ':correo' => $correo,
-            ':pass' => $hashed
+            ':pass' => $hashed,
+            'imagen' => $imagen
         ));
     }
 
@@ -29,7 +30,7 @@ class empleado {
         $resultado = $consulta->fetchAll();
         return $resultado;
     }
-
+ 
     function obtenerEmpleado(){
         $con = conexion("root", "1234");
         $consulta = $con->prepare("SELECT * FROM lista_empleado");
@@ -69,6 +70,13 @@ class empleado {
             ':pass' => $hashed
             
         ));
+    }
+    function obtenerTipoEmpleado(){
+        $con = conexion("root", "1234");
+        $consulta = $con->prepare("SELECT * FROM tipo_empleado");
+        $consulta->execute();
+        $resultado = $consulta->fetchAll();
+        return $resultado;
     }
 }
 
